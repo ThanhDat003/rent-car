@@ -1,0 +1,2 @@
+package com.rental_car.RentalCar.dto;public class LoginDTO {
+}

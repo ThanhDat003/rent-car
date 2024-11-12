@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Profile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .profile-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .illustration-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            padding: 2rem;
+        }
+        .illustration-text {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<!-- Header Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-car me-2"></i>
+            Rent a car today!
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ABOUT US</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>
+                        Welcome, <span th:text="${name}"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <li><a class="dropdown-item" href="#">My Bookings</a></li>
+                        <li><a class="dropdown-item" href="#">My Wallet</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Left Side - Illustration -->
+        <div class="col-md-6 border-end">
+            <div class="illustration-container">
+                <img th:src="@{'/static/image/oto.jpg'}" alt="Complete Profile" class="profile-image">
+                <div class="illustration-text">
+                    <h3 class="mb-3">Welcome to Our Community!</h3>
+                    <p class="text-muted">Complete your profile to get the most out of our car rental service. Your information helps us provide better recommendations and ensures a smooth rental experience.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Complete Profile Form -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body p-4">
+                    <h4 class="text-center mb-4">COMPLETE YOUR PROFILE</h4>
+                    <form action="/rent-car/complete-profile" method="post" th:object="${profileDTO}">
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <textarea class="form-control" id="address" name="address" rows="2" th:field="*{address}" required th:text="${address}"></textarea>
+                            <div th:if="${addressError}" class="text-danger mt-2" th:text="${addressError}"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" th:field="*{dateOfBirth}" required th:value="${dateOfBirth}">
+                            <div th:if="${dateError}" class="text-danger mt-2" th:text="${dateError}"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="identityCard" class="form-label">Identity Card Number</label>
+                            <input type="text" class="form-control" id="identityCard" name="identityCard" placeholder="Enter your ID card number" th:field="*{nationalIdNo}" required th:value="${identityCard}">
+                            <div th:if="${idError}" class="text-danger mt-2" th:text="${idError}"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="driverLicense" class="form-label">Driver's License Number</label>
+                            <input type="text" class="form-control" id="driverLicense" name="driverLicense" placeholder="Enter your driver's license number" th:field="*{drivingLicense}" required th:value="${driverLicense}">
+                            <div th:if="${licenseError}" class="text-danger mt-2" th:text="${licenseError}"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">COMPLETE PROFILE</button>
+                    </form>
+                    <div th:if="${success}" class="mt-3">
+                        <div class="alert alert-success" th:text="${success}"></div>
+                    </div>
+                    <div th:if="${error}" class="mt-3">
+                        <div class="alert alert-danger" th:text="${error}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

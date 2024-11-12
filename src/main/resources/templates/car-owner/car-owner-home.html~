@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent a car today! - Car Owner</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: #4a4a4a;
+        }
+        .navbar-brand {
+            color: white !important;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-link {
+            color: white !important;
+        }
+        .feature-box {
+            margin-bottom: 2rem;
+        }
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-links a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-car me-2"></i>
+            Rent a car today!
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ABOUT US</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>
+                        Welcome, <span th:text="${name}"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <li><a class="dropdown-item" href="#">My Cars</a></li>
+                        <li><a class="dropdown-item" href="#">My Wallet</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container py-5">
+    <h1 class="mb-4">Have a car for rent? Don't miss out of your benefit</h1>
+
+    <div class="row">
+        <!-- Insurance Works -->
+        <div class="col-md-4 feature-box">
+            <div class="d-flex align-items-start">
+          <span class="feature-icon">
+            <i class="fas fa-dollar-sign"></i>
+          </span>
+                <div>
+                    <h5>How the insurance works</h5>
+                    <p class="text-muted">From the minute you hand the keys over till the second you get them back you are covered. Your private insurance is not affected.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Completely Free -->
+        <div class="col-md-4 feature-box">
+            <div class="d-flex align-items-start">
+          <span class="feature-icon">
+            <i class="fas fa-unlock"></i>
+          </span>
+                <div>
+                    <h5>It's completely free</h5>
+                    <p class="text-muted">We offer both owners and renters free sign ups. It's only once a vehicle is rented out that a share is deducted to cover admin and insurance.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decide Price -->
+        <div class="col-md-4 feature-box">
+            <div class="d-flex align-items-start">
+          <span class="feature-icon">
+            <i class="fas fa-tag"></i>
+          </span>
+                <div>
+                    <h5>You decide the price</h5>
+                    <p class="text-muted">When you list a car you decide the price. We can help with recommendations as to price, but ultimately you decide!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Handing Over -->
+        <div class="col-md-4 feature-box">
+            <div class="d-flex align-items-start">
+          <span class="feature-icon">
+            <i class="fas fa-car"></i>
+          </span>
+                <div>
+                    <h5>Handing over your vehicle</h5>
+                    <p class="text-muted">You arrange the time and location for the exchange of your vehicle with the renter. Both parties will need to agree and sign the vehicle rental sheet before and after key handover.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- In Charge -->
+        <div class="col-md-4 feature-box">
+            <div class="d-flex align-items-start">
+          <span class="feature-icon">
+            <i class="fas fa-user-shield"></i>
+          </span>
+                <div>
+                    <h5>You are in charge</h5>
+                    <p class="text-muted">All renters are pre-screened by us to ensure safety and get your approval. If you do not feel comfortable with someone you are able to decline a booking.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Set Payment -->
+        <div class="col-md-4 feature-box">
+            <div class="d-flex align-items-start">
+          <span class="feature-icon">
+            <i class="fas fa-credit-card"></i>
+          </span>
+                <div>
+                    <h5>Set payment</h5>
+                    <p class="text-muted">We pay you once a month and you can always view how much you have collected under your user profile.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4 mb-5">
+        <h2 class="mb-4">Make money on your car right away</h2>
+        <button class="btn btn-primary btn-lg px-5">List Your Car Today</button>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h6 class="text-uppercase mb-3">RENT CARS</h6>
+                <ul class="footer-links">
+                    <li><a href="#">Search Cars and Rates</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h6 class="text-uppercase mb-3">CUSTOMER ACCESS</h6>
+                <ul class="footer-links">
+                    <li><a href="#">Manage My Booking</a></li>
+                    <li><a href="#">My Wallet</a></li>
+                    <li><a href="#">My Car</a></li>
+                    <li><a href="#">Log In</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h6 class="text-uppercase mb-3">JOIN US</h6>
+                <ul class="footer-links">
+                    <li><a href="#">New User Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
