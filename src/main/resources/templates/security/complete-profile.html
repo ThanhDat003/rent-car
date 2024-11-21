@@ -79,7 +79,7 @@
         <!-- Left Side - Illustration -->
         <div class="col-md-6 border-end">
             <div class="illustration-container">
-                <img th:src="@{'/static/image/oto.jpg'}" alt="Complete Profile" class="profile-image">
+                <img src="https://res.cloudinary.com/dwabdbbfj/image/upload/v1731508106/images_wy6aae.jpg" alt="Complete Profile" class="profile-image">
                 <div class="illustration-text">
                     <h3 class="mb-3">Welcome to Our Community!</h3>
                     <p class="text-muted">Complete your profile to get the most out of our car rental service. Your information helps us provide better recommendations and ensures a smooth rental experience.</p>
@@ -100,17 +100,17 @@
                         </div>
                         <div class="mb-3">
                             <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" th:field="*{dateOfBirth}" required th:value="${dateOfBirth}">
+                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" th:field="*{date_of_birth}" required th:value="${dateOfBirth}">
                             <div th:if="${dateError}" class="text-danger mt-2" th:text="${dateError}"></div>
                         </div>
                         <div class="mb-3">
                             <label for="identityCard" class="form-label">Identity Card Number</label>
-                            <input type="text" class="form-control" id="identityCard" name="identityCard" placeholder="Enter your ID card number" th:field="*{nationalIdNo}" required th:value="${identityCard}">
+                            <input type="text" class="form-control" id="identityCard" name="identityCard" placeholder="Enter your ID card number" th:field="*{national_id_no}" required th:value="${identityCard}">
                             <div th:if="${idError}" class="text-danger mt-2" th:text="${idError}"></div>
                         </div>
                         <div class="mb-3">
                             <label for="driverLicense" class="form-label">Driver's License Number</label>
-                            <input type="text" class="form-control" id="driverLicense" name="driverLicense" placeholder="Enter your driver's license number" th:field="*{drivingLicense}" required th:value="${driverLicense}">
+                            <input type="text" class="form-control" id="driverLicense" name="driverLicense" placeholder="Enter your driver's license number" th:field="*{driving_license}" required th:value="${driverLicense}">
                             <div th:if="${licenseError}" class="text-danger mt-2" th:text="${licenseError}"></div>
                         </div>
 

@@ -8,10 +8,10 @@ import java.util.Date;
 @Data
 public class ProfileDTO {
     private String name;
-    private LocalDate dateOfBirth;
-    private String nationalIdNo;
-    private String phoneNo;
+    private LocalDate date_of_birth;
+    private String national_id_no;
+    private String phone_no;
     private String email;
     private String address;
-    private String drivingLicense;
+    private String driving_license;
 }

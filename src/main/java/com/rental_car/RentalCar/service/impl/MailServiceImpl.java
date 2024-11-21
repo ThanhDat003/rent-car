@@ -8,6 +8,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class MailServiceImpl implements MailService {
     @Autowired
@@ -45,4 +47,22 @@ public class MailServiceImpl implements MailService {
                 "Rent a Car Team");
         javaMailSender.send(message);
     }
+
+    @Override
+    public void sendBookingSuccessEmail(String email, String carName, LocalDateTime startDate, LocalDateTime endDate, long price) throws MessagingException {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setTo(email);
+            helper.setSubject("Booking successful");
+            helper.setText("Dear " + email + ",\n\n" +
+                    "Your booking for " + carName + " from " + startDate + " to " + endDate + " has been successful.\n\n" +
+                    "Total price: " + price + " VND\n\n" +
+                    "Best regards,\n");
+            javaMailSender.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

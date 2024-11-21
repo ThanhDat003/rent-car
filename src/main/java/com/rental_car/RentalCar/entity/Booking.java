@@ -21,9 +21,9 @@ public class Booking {
     @Column(name = "booking_no", length = 50, unique = true)
     private String booking_no;
     @Column(name = "start_date_time")
-    private LocalDateTime start_date_time;
+    private LocalDateTime startDateTime;
     @Column(name = "end_date_time")
-    private LocalDateTime end_date_time;
+    private LocalDateTime endDateTime;
     @Column(name = "driver_information")
     private String driver_information;
     @Column(name = "payment_method", length = 20)
@@ -40,4 +40,5 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+    private Double total_price;
 }

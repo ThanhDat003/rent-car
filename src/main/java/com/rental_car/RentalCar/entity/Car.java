@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "car")
 @Data
@@ -37,7 +39,7 @@ public class Car {
     @Column(name = "fuel_consumption")
     private Double fuel_consumption;
     @Column(name = "base_price")
-    private Double base_price;
+    private Long base_price;
     @Column(name = "deposit")
     private Double deposit;
     @Column(name = "address")

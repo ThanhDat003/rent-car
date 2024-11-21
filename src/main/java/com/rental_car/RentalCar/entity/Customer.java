@@ -35,7 +35,7 @@ public class Customer {
     @Column(name = "driving_license", length = 50)
     private String driving_license;
     @Column(name = "wallet")
-    private Double wallet;
+    private Long wallet;
     @CreationTimestamp
     private LocalDateTime created_at;
     @UpdateTimestamp

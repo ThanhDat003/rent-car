@@ -6,6 +6,8 @@
   <title>Car Rental Service</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
   <style>
     .feature-icon {
       width: 60px;
@@ -53,11 +55,11 @@
             Welcome, <span th:text="${name}"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">My Profile</a></li>
+            <li><a class="dropdown-item" href="/rent-car/customer/profile">My Profile</a></li>
             <li><a class="dropdown-item" href="#">My Bookings</a></li>
             <li><a class="dropdown-item" href="#">My Wallet</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <li><a class="dropdown-item" href="/rent-car/logout">Logout</a></li>
           </ul>
         </li>
       </ul>
@@ -76,18 +78,18 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title mb-4">Find the ideal car rental for your trip</h5>
-          <form>
+          <form th:action="@{/rent-car/customer/search}" method="get">
             <div class="mb-3">
               <label class="form-label">PICK UP LOCATION</label>
-              <input type="text" class="form-control">
+              <input type="text" id="name" name="name" class="form-control" required>
             </div>
             <div class="mb-3">
               <label class="form-label">PICK UP DATE AND TIME</label>
-              <input type="datetime-local" class="form-control">
+              <input type="datetime-local" id="start_date_time" name="start_date_time" class="form-control" required>
             </div>
             <div class="mb-3">
               <label class="form-label">DROP OFF DATE AND TIME</label>
-              <input type="datetime-local" class="form-control">
+              <input type="datetime-local" id="end_date_time" name="end_date_time" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary w-100">Search</button>
           </form>
@@ -132,117 +134,118 @@
   </section>
 
   <!-- Testimonials Section -->
-  <section class="mb-5">
-    <h2 class="mb-4">What people say?</h2>
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <div class="card">
-          <div class="card-body d-flex">
-            <img src="/api/placeholder/50/50" class="rounded-circle me-3" alt="User">
-            <div class="placeholder-glow">
-              <p class="placeholder col-8"></p>
-              <p class="placeholder col-12"></p>
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="h3 mb-4">What people say?</h2>
+      <div class="swiper testimonial-slider">
+        <div class="swiper-wrapper">
+          <th:block th:each="feedback : ${feedbacks}">
+            <div class="swiper-slide">
+              <div class="card">
+                <div class="card-body d-flex align-items-center">
+                  <div>
+                    <h5 th:text="${feedback.getBooking().getCustomer().getName()}" class="card-title h5 mt-3"></h5>
+                    <div class="d-flex align-items-center mb-2">
+                      <div class="testimonial-rating">
+                        <i th:class="${'fas fa-star ' + (feedback.ratings >= 1 ? 'text-primary' : 'text-secondary')}"></i>
+                        <i th:class="${'fas fa-star ' + (feedback.ratings >= 2 ? 'text-primary' : 'text-secondary')}"></i>
+                        <i th:class="${'fas fa-star ' + (feedback.ratings >= 3 ? 'text-primary' : 'text-secondary')}"></i>
+                        <i th:class="${'fas fa-star ' + (feedback.ratings >= 4 ? 'text-primary' : 'text-secondary')}"></i>
+                        <i th:class="${'fas fa-star ' + (feedback.ratings >= 5 ? 'text-primary' : 'text-secondary')}"></i>
+                      </div>
+                    </div>
+                    <p th:text="${feedback.content}" class="testimonial-text"></p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </th:block>
         </div>
-      </div>
-      <div class="col-md-6 mb-4">
-        <div class="card">
-          <div class="card-body d-flex">
-            <img src="/api/placeholder/50/50" class="rounded-circle me-3" alt="User">
-            <div class="placeholder-glow">
-              <p class="placeholder col-8"></p>
-              <p class="placeholder col-12"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 mb-4">
-        <div class="card">
-          <div class="card-body d-flex">
-            <img src="/api/placeholder/50/50" class="rounded-circle me-3" alt="User">
-            <div class="placeholder-glow">
-              <p class="placeholder col-8"></p>
-              <p class="placeholder col-12"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 mb-4">
-        <div class="card">
-          <div class="card-body d-flex">
-            <img src="/api/placeholder/50/50" class="rounded-circle me-3" alt="User">
-            <div class="placeholder-glow">
-              <p class="placeholder col-8"></p>
-              <p class="placeholder col-12"></p>
-            </div>
-          </div>
-        </div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
       </div>
     </div>
   </section>
 
   <!-- Locations Section -->
-  <section>
-    <h2 class="mb-4">Where to find us?</h2>
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card location-card">
-          <img src="/api/placeholder/400/200" class="card-img-top" alt="Hanoi">
-          <div class="card-body">
-            <h5 class="card-title">Hanoi</h5>
-            <p class="card-text text-muted">Multiple locations</p>
+  <section class="py-5">
+    <div class="container">
+      <h2 class="h3 mb-4">Where to find us?</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card location-card">
+            <img src="https://res.cloudinary.com/dwabdbbfj/image/upload/v1731508107/hanoi_o3zhnx.jpg" class="card-img-top" alt="Hanoi">
+            <div class="card-body">
+              <h5 class="card-title">Hanoi</h5>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card location-card">
-          <img src="/api/placeholder/400/200" class="card-img-top" alt="Ho Chi Minh City">
-          <div class="card-body">
-            <h5 class="card-title">Ho Chi Minh City</h5>
-            <p class="card-text text-muted">Multiple locations</p>
+        <div class="col-md-4 mb-4">
+          <div class="card location-card">
+            <img src="https://res.cloudinary.com/dwabdbbfj/image/upload/v1731508107/Ho_Chi_Minh_City__City_fqj74d.jpg" class="card-img-top" alt="Ho Chi Minh City">
+            <div class="card-body">
+              <h5 class="card-title">Ho Chi Minh City</h5>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card location-card">
-          <img src="/api/placeholder/400/200" class="card-img-top" alt="Da Nang - Hoi An">
-          <div class="card-body">
-            <h5 class="card-title">Da Nang - Hoi An</h5>
-            <p class="card-text text-muted">Multiple locations</p>
+        <div class="col-md-4 mb-4">
+          <div class="card location-card">
+            <img src="https://res.cloudinary.com/dwabdbbfj/image/upload/v1731508107/da-nang_y7qmkf.jpg" class="card-img-top" alt="Da Nang - Hoi An">
+            <div class="card-body">
+              <h5 class="card-title">Da Nang - Hoi An</h5>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card location-card">
-          <img src="/api/placeholder/400/200" class="card-img-top" alt="Nha Trang">
-          <div class="card-body">
-            <h5 class="card-title">Nha Trang</h5>
-            <p class="card-text text-muted">Multiple locations</p>
+        <div class="col-md-4 mb-4">
+          <div class="card location-card">
+            <img src="https://res.cloudinary.com/dwabdbbfj/image/upload/v1731508109/nha-trang_nweppr.jpg" class="card-img-top" alt="Nha Trang">
+            <div class="card-body">
+              <h5 class="card-title">Nha Trang</h5>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card location-card">
-          <img src="/api/placeholder/400/200" class="card-img-top" alt="Da Lat">
-          <div class="card-body">
-            <h5 class="card-title">Da Lat</h5>
-            <p class="card-text text-muted">Multiple locations</p>
+        <div class="col-md-4 mb-4">
+          <div class="card location-card">
+            <img src="https://res.cloudinary.com/dwabdbbfj/image/upload/v1731508106/da-lat_erquiz.jpg" class="card-img-top" alt="Da Lat">
+            <div class="card-body">
+              <h5 class="card-title">Da Lat</h5>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card location-card">
-          <img src="/api/placeholder/400/200" class="card-img-top" alt="Quang Ninh">
-          <div class="card-body">
-            <h5 class="card-title">Quang Ninh</h5>
-            <p class="card-text text-muted">Multiple locations</p>
+        <div class="col-md-4 mb-4">
+          <div class="card location-card">
+            <img src="https://res.cloudinary.com/dwabdbbfj/image/upload/v1731508108/quang-ninh_xoto29.jpg" class="card-img-top" alt="Quang Ninh">
+            <div class="card-body">
+              <h5 class="card-title">Quang Ninh</h5>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var testimonialSlider = new Swiper('.testimonial-slider', {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-next',
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+        },
+        1200: {
+          slidesPerView: 3,
+        }
+      }
+    });
+  });
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 </body>

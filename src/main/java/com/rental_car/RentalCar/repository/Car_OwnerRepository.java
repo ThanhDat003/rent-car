@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface Car_OwnerRepository extends JpaRepository<Car_Owner, Long> {
+    Car_Owner findByEmail(String email);
 }

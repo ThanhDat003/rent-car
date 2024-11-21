@@ -42,6 +42,8 @@ public class SpringSecurityConfig {
                 .requestMatchers("/rent-car/signup/activate").permitAll()
                 .requestMatchers("/rent-car/forgot-password").permitAll()
                 .requestMatchers("/rent-car/reset-password").permitAll()
+                .requestMatchers("/rent-car/owner/**").hasRole("CAR_OWNER")
+                .requestMatchers("/rent-car/customer/**").hasRole("CUSTOMER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin(formLogin -> formLogin

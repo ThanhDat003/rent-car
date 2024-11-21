@@ -76,6 +76,9 @@
                     <div th:if="${successReset}" class="mt-3">
                         <div class="alert alert-success" th:text="${successReset}"></div>
                     </div>
+                    <div th:if="${param.message}" class="alert alert-success">
+                        <p th:text="${param.message}"></p>
+                    </div>
                 </div>
             </div>
         </div>
