@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Car</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: #4a4a4a;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: white !important;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+
+
+        }
+
+        .container1 {
+            width: 100%;
+            background: #e5f7fa;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .steps div {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background: #bcc4cb;
+            color: rgb(14, 13, 13);
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
+        .steps div.active {
+            background: #5799df;
+        }
+
+        form {
+            font-size: 16px;
+            /* Bạn có thể thay đổi giá trị này theo ý muốn */
+        }
+
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+
+        .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 25px;
+        }
+
+        .buttons .cancel {
+            background: #ccc;
+        }
+
+
+        .footer {
+            background-color: #e8eaeb;
+            padding: 2rem 0;
+
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        h6 {
+            margin-top: 40px;
+            margin-bottom: -1rem;
+            margin-left: 60px;
+        }
+
+        h3 {
+            margin-top: 40px;
+            margin-bottom: -1rem;
+            margin-left: 60px;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+
+            color: blue;
+        }
+
+        .breadcrumb span {
+            color: black;
+            margin: 0 5px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            /* Đảm bảo padding không làm tăng kích thước */
+        }
+
+
+        .terms label {
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+        textarea {
+            resize: vertical;
+            /* Cho phép thay đổi kích thước theo chiều dọc */
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .card {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .info {
+            flex: 1;
+        }
+
+        .info p {
+            margin: 5px 0;
+        }
+
+        .info .status {
+            color: green;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            margin-left: 46%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+
+        .preview img {
+            max-width: 50%;
+            border-radius: 8px;
+        }
+
+        .info {
+            margin-top: 10px;
+        }
+
+        .status {
+            color: green;
+            font-weight: bold;
+        }
+
+        .image-container1 {
+            display: none;
+        }
+
+        .active1 {
+            display: block;
+        }
+
+        .nav1 {
+            cursor: pointer;
+            padding: 10px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-car me-2"></i>
+            Rent a car today!
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ABOUT US</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>
+                        Welcome, <span th:text="${name}"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/rent-car/owner/profile">My Profile</a></li>
+                        <li><a class="dropdown-item" href="/rent-car/owner/list-car">My Cars</a></li>
+                        <li><a class="dropdown-item" href="#">My Wallet</a></li>
+                        <li><a class="dropdown-item" href="#">My Reports</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="breadcrumb">
+    <a href="/rent-car/owner/home" style="
+    margin-left: 50px;
+    margin-top: 10px;
+">Home</a>
+    <span style="
+    margin-top: 10px;
+">&gt;</span>
+    <span style="
+
+    margin-top: 10px;
+">Add a car</span>
+</div>
+
+<div style="
+    margin-top: -10px;
+"><strong style="
+        margin-left: 50px;
+    ">Add a car</strong></div>
+<div class="container1">
+    <div class="steps">
+        <div><strong>Step 1: Basic</strong></div>
+        <div><strong>Step 2: Details</strong></div>
+        <div><strong>Step 3: Pricing</strong></div>
+        <div class="active"><strong>Step 4: Finish</strong></div>
+    </div>
+
+    <h3 style="margin-bottom: 10px;
+    margin-left: 85px;"><strong style="margin-left: 650px;">Finish</strong></h3>
+
+    <strong style="margin-left: 650px; margin-top: 50px;">You have successfully added a car!</strong>
+    <a href="/rent-car/owner/list-car" style="margin-left: 10px;"><button>Back to view cars</button></a>
+
+</div>
+<script>
+    document.getElementById("carForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const response = await fetch("save_car.php", {
+            method: "POST",
+            body: formData
+        });
+        const result = await response.text();
+        alert(result);
+    });
+</script>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h5 class="text-uppercase mb-3">RENT CARS</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Search Cars and Rates</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5 class="text-uppercase mb-3">CUSTOMER ACCESS</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Manage My Booking</a></li>
+                    <li><a href="#">My Wallet</a></li>
+                    <li><a href="#">My Car</a></li>
+                    <li><a href="#">Log In</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5 class="text-uppercase mb-3">JOIN US</h5>
+                <ul class="footer-links">
+                    <li><a href="#">New User Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

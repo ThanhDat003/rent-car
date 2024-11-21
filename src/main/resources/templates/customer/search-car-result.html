@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.0/swiper-bundle.min.css" />
+    <title>Rent a Car</title>
+    <style>
+        .navbar {
+            background-color: #4a4a4a;
+        }
+        .navbar-brand {
+            color: white !important;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-link {
+            color: white !important;
+        }
+        .feature-box {
+            margin-bottom: 2rem;
+        }
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-links a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="/rent-car/customer/home">
+            <i class="fas fa-car me-2"></i>
+            Rent a car today!
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ABOUT US</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>
+                        Welcome, <span th:text="${name1}"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/rent-car/customer/profile">My Profile</a></li>
+                        <li><a class="dropdown-item" href="/rent-car/customer/list-booking">My Bookings</a></li>
+                        <li><a class="dropdown-item" href="/rent-car/customer/wallet">My Wallet</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/rent-car/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Search Form -->
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/rent-car/customer/home">Home</a></li>
+            <li class="breadcrumb-item active">Search Results</li>
+        </ol>
+    </nav>
+
+    <div class="card bg-light">
+        <div class="card-body">
+            <form th:action="@{/rent-car/customer/search}" method="post">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">PICK-UP LOCATION</label>
+                        <input type="text" id="name" name="name" class="form-control" th:value="${name}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">PICK-UP DATE AND TIME</label>
+                        <div class="row">
+                            <div class="col-8">
+                                <input type="datetime-local" id="start_date_time" name="start_date_time" class="form-control" th:value="${start_date_time}">
+                            </div>
+<!--                            <div class="col-4">-->
+<!--                                <select class="form-select">-->
+<!--                                    <option>00:00</option>-->
+<!--                                    &lt;!&ndash; Add more time options &ndash;&gt;-->
+<!--                                </select>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">DROP-OFF DATE AND TIME</label>
+                        <div class="row">
+                            <div class="col-8">
+                                <input type="datetime-local" id="end_date_time" name="end_date_time" class="form-control" th:value="${end_date_time}">
+                            </div>
+<!--                            <div class="col-4">-->
+<!--                                <select class="form-select">-->
+<!--                                    <option>00:00</option>-->
+<!--                                    &lt;!&ndash; Add more time options &ndash;&gt;-->
+<!--                                </select>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-4 text-center">
+                        <button type="submit" class="btn btn-primary">SEARCH</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    <div class="mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5>Search Results</h5>
+            <div th:if="${cars.size() == 0}">
+                <p>No cars found for the selected criteria.</p>
+            </div>
+            <div class="d-flex gap-2 align-items-center">
+<!--                <div class="btn-group">-->
+<!--                    <button class="btn btn-outline-secondary btn-sm"><i class="fas fa-th"></i></button>-->
+<!--                    <button class="btn btn-outline-secondary btn-sm"><i class="fas fa-list"></i></button>-->
+<!--                </div>-->
+                <select class="form-select form-select-sm" style="width: auto">
+                    <option>Sort</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Car Cards -->
+        <div th:each="car : ${cars}" class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <!-- Swiper Container for Car Images -->
+                    <div class="swiper car-images-slider">
+                        <div class="swiper-wrapper">
+                            <!-- Loop through images for each car -->
+                            <div th:each="image : ${carImages[car.getId()]}" class="swiper-slide">
+                                <img th:src="${image}" style="height: 300px; width: 500px" class="img-fluid" alt="Car image">
+                            </div>
+                        </div>
+                        <!-- Swiper Navigation Arrows -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <a th:href="@{/rent-car/customer/car/detail/carId={id}(id=${car.getId()})}">
+<!--                                <h5 class="card-title" th:text="${car.getName()}"></h5>-->
+                                <h5 style="color: #0b2e13" ><strong th:text="${car.getName()}"></strong></h5>
+                            </a>
+                            <div>
+                                <div th:if="${carRatings[car.getId()] == 0}">
+                                    <small class="text-muted">No ratings yet</small>
+                                </div>
+                                <div th:unless="${carRatings[car.getId()] == 0}">
+                                    <div class="stars">
+                                        <span th:each="i : ${#numbers.sequence(1, 5)}">
+                                            <!-- Hiển thị sao đầy nếu rating >= i -->
+                                            <i th:classappend="${i <= carRatings[car.getId()]} ? 'fas fa-star' : ''"></i>
+                                            <!-- Hiển thị sao nửa đầy nếu rating nằm giữa i và i+1 -->
+                                            <i th:classappend="${i == carRatings[car.getId()] + 0.5} ? 'fas fa-star-half-alt' : ''"></i>
+                                            <!-- Hiển thị sao rỗng nếu rating < i -->
+                                            <i th:classappend="${i > carRatings[car.getId()]} ? 'far fa-star' : ''"></i>
+                                        </span>
+                                    </div>
+                                    <small class="text-muted" th:text="${carRatings[car.getId()]} + ' / 5'"></small>
+                                </div>
+
+                            </div>
+                        </div>
+                        <p class="card-text">
+<!--                            <strong>No. of seats: </strong><span th:text="${car.getNumber_of_seats()}"></span><br>-->
+                            <strong>Price: </strong><span th:text="${car.getBase_price()}"></span><br>
+                            <strong>Locations: </strong><span th:text="${car.getAddress()}"></span><br>
+                            <strong>Status: </strong>
+                            <span th:classappend="${carBookingStatuses[car.id] == 'Available' ? 'text-success' : 'text-danger'}"
+                                  th:text="${carBookingStatuses[car.id]}"></span>
+                        </p>
+                        <div class="text-end">
+
+<!--                            <a th:href="@{/rent-car/customer/rent/carId={id}(id=${car.getId()})}">-->
+<!--                                <button class="btn btn-primary btn-sm">Rent now</button>-->
+<!--                            </a>-->
+                            <form th:action="@{/rent-car/customer/rent/carId/{id}(id=${car.getId()})}" method="get">
+                                <input type="hidden" name="name" th:value="${name}" />
+                                <input type="hidden" name="start_date_time" th:value="${start_date_time}" />
+                                <input type="hidden" name="end_date_time" th:value="${end_date_time}" />
+                                <button class="btn btn-primary btn-sm">Rent now</button>
+                            </form>
+                            <a th:href="@{/rent-car/customer/car/detail/carId={id}(id=${car.getId()})}">
+                                <button class="btn btn-outline-primary btn-sm">View details</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-light mt-5 py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h6>RENT CARS</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-dark">Search Cars and Rates</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h6>CUSTOMER ACCESS</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-dark">Manage My Booking</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">My Email</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">My Car</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">Log In</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h6>JOIN US</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-dark">New User Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Swiper('.car-images-slider', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            loop: true, // Cho phép lặp lại các slide
+        });
+    });
+</script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

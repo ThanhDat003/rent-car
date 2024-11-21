@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Entity
 @Table(name = "car")
 @Data
@@ -50,9 +48,10 @@ public class Car {
     private String additional_functions;
     @Column(name = "terms_of_use")
     private String terms_of_use;
-    @Column(name = "images")
+    @Column(name = "images", length = 1000)
     private String images;
+    private String status;
     @ManyToOne
     @JoinColumn(name = "car_owner_id")
-    private Car_Owner car_owner;
+    private Car_Owner carOwner;
 }

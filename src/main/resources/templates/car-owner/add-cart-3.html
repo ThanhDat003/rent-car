@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Car</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: #4a4a4a;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: white !important;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container1 {
+            width: 100%;
+            background: #e5f7fa;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .steps div {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background: #bcc4cb;
+            color: rgb(14, 13, 13);
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
+        .steps div.active {
+            background: #5799df;
+        }
+
+        form {
+            font-size: 16px;
+            /* Bạn có thể thay đổi giá trị này theo ý muốn */
+        }
+
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group-inline {
+            display: flex;
+            gap: 10px;
+            padding-left: 110px;
+            margin-top: 35px;
+        }
+
+        .form-group-inline .form-group {
+            flex: 1;
+        }
+
+        .documents {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .documents .document-upload {
+            flex: 1;
+            text-align: center;
+            border: 5px dashed #ccc;
+            padding: 20px;
+            /* margin: 35px 75px; */
+            border-radius: 5px;
+            margin-left: 101px;
+            margin-right: 101px;
+            margin-top: 40px;
+        }
+
+        .documents .document-upload:hover {
+            border-color: #007bff;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 25px;
+        }
+
+        .buttons .cancel {
+            background: #ccc;
+        }
+
+        .buttons .next {
+            background: #007bff;
+            color: white;
+        }
+
+
+        .footer {
+            background-color: #e8eaeb;
+            padding: 2rem 0;
+
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        h6 {
+            margin-top: 40px;
+            margin-bottom: -1rem;
+            margin-left: 60px;
+        }
+
+        h7 {
+            margin-top: 40px;
+            margin-bottom: -1rem;
+            margin-left: 60px;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+
+            color: blue;
+        }
+
+        .breadcrumb span {
+            color: black;
+            margin: 0 5px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            /* margin: 20px; */
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 35%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .terms {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e5f7fa;
+            /* border: 1px solid #ccc; */
+            /* border-radius: 4px;
+      } */
+        }
+
+        .terms label {
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+        textarea {
+            resize: vertical;
+            /* Cho phép thay đổi kích thước theo chiều dọc */
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            /* Đặt các phần tử theo chiều dọc */
+            gap: 20px;
+            /* Khoảng cách giữa các phần tử */
+            margin-top: 20px;
+            /* Khoảng cách phía trên cho container */
+        }
+
+        label {
+            font-weight: bold;
+            /* Đậm cho nhãn */
+        }
+
+        input[type="text"] {
+            width: 50%;
+            /* Chiếm toàn bộ chiều rộng */
+            padding: 10px;
+            /* Padding cho input */
+            border: 1px solid #ccc;
+            /* Viền cho input */
+            border-radius: 4px;
+            /* Bo góc cho input */
+            box-sizing: border-box;
+            /* Đảm bảo padding không làm tăng kích thước */
+        }
+    </style>
+</head>
+
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-car me-2"></i>
+            Rent a car today!
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ABOUT US</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>
+                        Welcome, <span th:text="${name}"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/rent-car/owner/profile">My Profile</a></li>
+                        <li><a class="dropdown-item" href="/rent-car/owner/list-car">My Cars</a></li>
+                        <li><a class="dropdown-item" href="#">My Wallet</a></li>
+                        <li><a class="dropdown-item" href="#">My Reports</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="breadcrumb">
+    <a href="car-owner-home.html" style="
+  margin-left: 50px;
+  margin-top: 10px;
+">Home</a>
+    <span style="
+  margin-top: 10px;
+">&gt;</span>
+    <span style="
+
+  margin-top: 10px;
+">Add a car</span>
+</div>
+
+<div style="
+    margin-top: -10px;
+"><strong style="
+        margin-left: 50px;
+    ">Add a car</strong></div>
+<div class="container1">
+
+    <div class="steps">
+        <div><strong>Step 1: Basic</strong></div>
+        <div><strong>Step 2: Details</strong></div>
+        <div class="active"><strong>Step 3: Pricing</strong></div>
+        <div><strong>Step 4: Finish</strong></div>
+    </div>
+
+    <form th:action="@{/rent-car/owner/add-car/step-3}" th:object="${car}" method="post">
+        <div class="terms">
+            <div class="input-container">
+                <label for="basePrice">Set base price for your car:</label>
+                <input type="text" name="basePrice" id="basePrice" placeholder="VND/Day">
+
+                <label for="deposit">Required deposit:</label>
+                <input type="text" name="deposit" id="deposit" placeholder="VND">
+            </div>
+        </div>
+
+        <div class="terms">
+            <label>Terms of use:</label>
+            <br>
+            <label><input name="terms_of_use" value="No smoking" type="checkbox"> No smoking</label>
+            <label><input name="terms_of_use" value="No food in car" type="checkbox"> No food in car</label>
+            <br>
+            <label><input name="terms_of_use" value="No pet" type="checkbox"> No pet</label>
+            <br>
+            <br>
+            <br>
+            <label>Please specify:</label>
+            <br>
+            <textarea rows="4"
+                      style="width: calc(50% - 10px);padding: 10px;border: 1px solid #ccc;border-radius: 4px;"></textarea>
+        </div>
+
+        <div style="background-color: #e5f7fa;">
+            <div class="buttons d-flex justify-content-center" style="gap: 20px; padding: 20px 0;">
+                <button type="button" class="cancel"><a href="javascript:history.back()"
+                                                        style="color: black; text-decoration: none;">Cancel</a></button>
+                <button type="submit" class="next">Next</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--<script>-->
+<!--    document.querySelector('.next').addEventListener('click', function () {-->
+<!--        // Collect form data-->
+<!--        const formData = {-->
+<!--            license: document.getElementById('license').value,-->
+<!--            color: document.getElementById('color').value,-->
+<!--            brand: document.getElementById('brand').value,-->
+<!--            model: document.getElementById('model').value,-->
+<!--            year: document.getElementById('year').value,-->
+<!--            seats: document.getElementById('seats').value,-->
+<!--            transmission: document.querySelector('.button-group .button.active').innerText,-->
+<!--            fuel: document.querySelector('.button-group .button.active').innerText-->
+<!--        };-->
+
+<!--        // Save form data to localStorage (or send to server)-->
+<!--        localStorage.setItem('carData', JSON.stringify(formData));-->
+
+<!--        // Redirect to the next step-->
+<!--        window.location.href = 'add-a-car-step3.html';-->
+<!--    });-->
+<!--</script>-->
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h5 class="text-uppercase mb-3">RENT CARS</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Search Cars and Rates</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5 class="text-uppercase mb-3">CUSTOMER ACCESS</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Manage My Booking</a></li>
+                    <li><a href="#">My Wallet</a></li>
+                    <li><a href="#">My Car</a></li>
+                    <li><a href="#">Log In</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5 class="text-uppercase mb-3">JOIN US</h5>
+                <ul class="footer-links">
+                    <li><a href="#">New User Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

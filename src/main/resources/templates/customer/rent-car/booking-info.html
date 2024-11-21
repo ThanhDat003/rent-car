@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.0/swiper-bundle.min.css" />
+    <style>
+        .nav-steps .step {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            position: relative;
+        }
+        .nav-steps .active {
+            background: #0d6efd;
+            color: white;
+        }
+        .car-image {
+            background: #f8f9fa;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #dee2e6;
+        }
+        .star-rating {
+            color: #ffc107;
+        }
+        .navbar {
+            background-color: #4a4a4a;
+        }
+        .navbar-brand {
+            color: white !important;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-link {
+            color: white !important;
+        }
+        .feature-box {
+            margin-bottom: 2rem;
+        }
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-links a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+        .car-image {
+            width: 100%; /* Chiều rộng bằng toàn bộ vùng chứa */
+            max-width: 400px; /* Giới hạn chiều rộng tối đa để vừa vặn hơn */
+            height: 250px; /* Chiều cao cố định */
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #dee2e6;
+            overflow: hidden; /* Giữ ảnh trong vùng chứa */
+        }
+
+        .car-image img {
+            width: 100%; /* Tự động thay đổi chiều rộng */
+            height: 100%; /* Tự động thay đổi chiều cao */
+            object-fit: cover; /* Đảm bảo ảnh được căn chỉnh vừa vặn trong khung */
+        }
+
+    </style>
+
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="/rent-car/customer/home">
+            <i class="fas fa-car me-2"></i>
+            Rent a car today!
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ABOUT US</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>
+                        Welcome, <span th:text="${name}"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/rent-car/customer/profile">My Profile</a></li>
+                        <li><a class="dropdown-item" href="/rent-car/customer/list-booking">My Bookings</a></li>
+                        <li><a class="dropdown-item" href="/rent-car/customer/wallet">My Wallet</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/rent-car/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Breadcrumb -->
+<div class="container mt-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Rent car</li>
+        </ol>
+    </nav>
+
+    <!-- Booking Details -->
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Booking Details</h5>
+        </div>
+        <div class="card-body">
+            <ul class="list-unstyled">
+                <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i><span th:text="'Location: ' + ${name1}"></span></li>
+                <li class="mb-2"><i class="fas fa-calendar me-2"></i><span th:text="'Start Date: ' + ${start_date_time}"></span></li>
+                <li><i class="fas fa-calendar-check me-2"></i><span th:text="'End Date: ' + ${end_date_time}"></span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Steps -->
+    <div class="nav-steps d-flex mb-4">
+        <div class="step active flex-fill">Step 1: Booking Information</div>
+        <div class="step flex-fill">Step 2: Payment</div>
+        <div class="step flex-fill">Step 3: Finish</div>
+    </div>
+
+    <div class="row">
+        <!-- Car Details -->
+        <div class="col-md-6">
+            <div class="car-image mb-3">
+                <div class="swiper car-images-slider">
+                    <div class="swiper-wrapper">
+                        <!-- Loop through images for each car -->
+                        <div th:each="image : ${images}" class="swiper-slide">
+                            <img th:src="${image}" class="img-fluid" alt="Car image">
+                        </div>
+                    </div>
+                    <!-- Swiper Navigation Arrows -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <h5 style="color: #0b2e13" ><strong th:text="${car.getName()}"></strong></h5>
+            <div class="d-flex align-items-center mb-3" th:unless="${rating == 0}">
+                <div class="stars">
+                    <span th:each="i : ${#numbers.sequence(1, 5)}">
+                        <!-- Hiển thị sao đầy nếu rating >= i -->
+                        <i th:classappend="${i <= rating} ? 'fas fa-star' : ''"></i>
+                        <!-- Hiển thị sao nửa đầy nếu rating nằm giữa i và i+1 -->
+                        <i th:classappend="${i == rating + 0.5} ? 'fas fa-star-half-alt' : ''"></i>
+                        <!-- Hiển thị sao rỗng nếu rating < i -->
+                        <i th:classappend="${i > rating} ? 'far fa-star' : ''"></i>
+                    </span>
+                </div>
+                <div th:if="${rating == 0}">
+                    <small class="text-muted">No ratings yet</small>
+                </div>
+            </div>
+            <table class="table">
+                <tr>
+                    <td>Price:</td>
+                    <td th:text="${car.getBase_price()} + ' VND / day'"></td>
+                </tr>
+                <tr>
+                    <td>Location:</td>
+                    <td th:text="${car.getAddress()}"></td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <td><span class="text-success">Available</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Booking Summary -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Booking Summary</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Number of days:</span>
+                        <strong th:text="${days} + ' days' "></strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Price per day:</span>
+                        <strong th:text="${car.getBase_price()} + ' VND' "></strong>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Total:</span>
+                        <strong th:text="${totalPrice} + ' VND' "></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="">
+            <a href="javascript:window.history.back()" class="btn btn-primary btn-block">Cancel</a>
+<!--            <a th:href="@{/rent-car/customer/rent/carId/{id}/payment(id=${car.getId()})}" class="btn btn-primary btn-block" style="margin-left: 5px">Next</a>-->
+            <form th:action="@{/rent-car/customer/rent/carId/{id}/payment(id=${car.getId()})}" method="get" class="btn btn-primary btn-block" style="padding-top: 2px;
+    padding-bottom: 4px; margin-left: 5px;">
+                <input type="hidden" name="name" th:value="${name1}" />
+                <input type="hidden" name="start_date_time" th:value="${start_date_time}" />
+                <input type="hidden" name="end_date_time" th:value="${end_date_time}" />
+                <input type="hidden" name="end_date_time" th:value="${rating}" />
+                <input type="hidden" name="end_date_time" th:value="${days}" />
+                <input type="hidden" name="end_date_time" th:value="${totalPrice}" />
+                <button class="btn btn-primary btn-sm">Next</button>
+            </form>
+        </div>
+
+</div>
+
+<footer class="bg-light mt-5 py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h6>RENT CARS</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-dark">Search Cars and Rates</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h6>CUSTOMER ACCESS</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-dark">Manage My Booking</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">My Email</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">My Car</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">Log In</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h6>JOIN US</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-dark">New User Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Swiper('.car-images-slider', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            loop: true, // Cho phép lặp lại các slide
+        });
+    });
+</script>
+</body>
+</html>

@@ -26,7 +26,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         <i class="fas fa-user-circle me-1"></i>
-                        Welcome, <span th:text="${name1}"></span>
+                        Welcome, <span th:text="${name}"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/rent-car/customer/profile">My Profile</a></li>
@@ -43,24 +43,22 @@
 
 <div class="container py-5">
     <h1 class="mb-4">My Wallet</h1>
-    <div class="card">
+    <div class="card" style="width: 40%;">
         <div class="card-body">
             <h5 class="card-title">Wallet Balance</h5>
             <p class="card-text display-4" th:text="${#numbers.formatDecimal(walletBalance, 0, 'COMMA', 0, 'POINT')} + ' VND'"></p>
-            <div class="mt-4">
-                <form th:action="@{/rent-car/customer/wallet/add-funds}" method="post">
-                    <div class="input-group mb-3">
-                        <input type="number" class="form-control" name="amount" placeholder="Enter amount to add" required>
-                        <button class="btn btn-primary" type="submit">Add Funds</button>
-                    </div>
-                </form>
-                <form th:action="@{/rent-car/customer/wallet/withdraw}" method="post">
-                    <div class="input-group mb-3">
-                        <input type="number" class="form-control" name="amount" placeholder="Enter amount to withdraw" required>
-                        <button class="btn btn-danger" type="submit">Withdraw</button>
-                    </div>
-                </form>
-            </div>
+            <form th:action="@{/rent-car/customer/wallet/add-funds}" method="post">
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" name="amount" placeholder="Enter amount to add" required>
+                    <button class="btn btn-primary" type="submit">Add Funds</button>
+                </div>
+            </form>
+            <form th:action="@{/rent-car/customer/wallet/withdraw}" method="post">
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" name="amount" placeholder="Enter amount to withdraw" required>
+                    <button class="btn btn-danger" type="submit">Withdraw</button>
+                </div>
+            </form>
             <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
             <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
         </div>

@@ -12,5 +12,5 @@ public class Car_OwnerDTO {
     private String email;
     private String address;
     private String driving_license;
-    private Double wallet;
+    private Long wallet;
 }
