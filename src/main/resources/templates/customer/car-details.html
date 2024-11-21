@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent a Car Today</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.0/swiper-bundle.min.css" />
+    <style>
+        .tab-content {
+            margin-top: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .navbar {
+            background-color: #4a4a4a;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: #666666 !important;
+        }
+
+        .feature-box {
+            margin-bottom: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+<!-- Header Navigation -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="/rent-car/customer/home">
+            <i class="fas fa-car me-2"></i>
+            Rent a car today!
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ABOUT US</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>
+                        Welcome, <span th:text="${name1}"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/rent-car/customer/profile">My Profile</a></li>
+                        <li><a class="dropdown-item" href="#">My Bookings</a></li>
+                        <li><a class="dropdown-item" href="#">My Wallet</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/rent-car/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/rent-car/customer/home">Home</a></li>
+            <li class="breadcrumb-item"><a href="javascript:window.history.back();">Search Results</a></li>
+            <li class="breadcrumb-item active">Car details</li>
+        </ol>
+    </nav>
+    <h1 class="my-4">Car Details</h1>
+    <hr/>
+    <div class="row">
+        <div class="col-md-5">
+            <!-- Swiper Container for Car Images -->
+            <div class="swiper car-images-slider">
+                <div class="swiper-wrapper">
+                    <!-- Loop through images for each car -->
+                    <div th:each="image : ${images}" class="swiper-slide">
+                        <img th:src="${image}" class="img-fluid" alt="Car image">
+                    </div>
+                </div>
+                <!-- Swiper Navigation Arrows -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <p class="card-text" ><strong th:text="${car.getName()}"></strong></p>
+            <div class="d-flex align-items-center mb-3" th:unless="${rating == 0}">
+                <div class="stars">
+                    <span th:each="i : ${#numbers.sequence(1, 5)}">
+                        <!-- Hiển thị sao đầy nếu rating >= i -->
+                        <i th:classappend="${i <= rating} ? 'fas fa-star' : ''"></i>
+                        <!-- Hiển thị sao nửa đầy nếu rating nằm giữa i và i+1 -->
+                        <i th:classappend="${i == rating + 0.5} ? 'fas fa-star-half-alt' : ''"></i>
+                        <!-- Hiển thị sao rỗng nếu rating < i -->
+                        <i th:classappend="${i > rating} ? 'far fa-star' : ''"></i>
+                    </span>
+                </div>
+                <div th:if="${rating == 0}">
+                    <small class="text-muted">No ratings yet</small>
+                </div>
+            </div>
+            <p><strong>Price:</strong> <span th:text="${car.getBase_price()}"></span></p>
+            <p><strong>Locations:</strong> <span th:text="${car.getAddress()}"></span></p>
+            <p><strong>Status:</strong> <span class="text-success">Available</span></p>
+        </div>
+        <div class="col-md-2">
+            <a th:href="@{/rent-car/customer/rent/{id}(id=${car.getId()})}">
+                <button class="btn btn-outline-primary btn-sm">Rent now</button>
+            </a>
+        </div>
+    </div>
+    <br/>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="basic-info-tab" data-bs-toggle="tab" data-bs-target="#basic-info"
+                    type="button" role="tab">
+                Basic Information
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button"
+                    role="tab">
+                Details
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="terms-of-use-tab" data-bs-toggle="tab" data-bs-target="#terms-of-use" type="button"
+                    role="tab">
+                Terms of use
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- Basic Information Form -->
+        <div class="tab-pane fade show active" id="basic-info" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="card-text">
+                        <strong>License plate: </strong><span th:text="${car.getLicense_plate()}"></span><br><br/>
+                        <strong>Brand name: </strong><span th:text="${car.getBrand()}"></span><br><br>
+                        <strong>Production year: </strong><span th:text="${car.getProduction_years()}"></span><br><br>
+                        <strong>Transmission: </strong><span th:text="${car.getTransmission_type()}"></span><br><br>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="card-text">
+                        <strong>Color: </strong><span th:text="${car.getColor()}"></span><br><br/>
+                        <strong>Model: </strong><span th:text="${car.getModel()}"></span><br><br>
+                        <strong>No. of seats: </strong><span th:text="${car.getNumber_of_seats()}"></span><br><br>
+                        <strong>Fuel: </strong><span th:text="${car.getFuel_type()}"></span><br><br>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="details" role="tabpanel">
+            <div class="row">
+                <p class="card-text">
+                    <strong>Mileage: </strong><span th:text="${car.getMileage()}"></span><br><br/>
+                    <strong>Fuel consumption: </strong><span th:text="${car.getFuel_consumption()}"></span><br><br/>
+                    <strong>Description: </strong><span th:text="${car.getDescription()}"></span>
+                </p>
+            </div>
+            <div class="container mt-4">
+                <h5 class="mb-0">Additional functions:</h5><br/>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" checked id="bluetooth">
+                                <label class="form-check-label" for="bluetooth">
+                                    <i class="fab fa-bluetooth-b me-2"></i>Bluetooth
+                                </label>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="gps">
+                                <label class="form-check-label" for="gps">
+                                    <i class="fas fa-location-dot me-2"></i>GPS
+                                </label>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="camera">
+                                <label class="form-check-label" for="camera">
+                                    <i class="fas fa-camera me-2"></i>Camera
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="sunroof">
+                                <label class="form-check-label" for="sunroof">
+                                    <i class="fas fa-sun me-2"></i>Sun roof
+                                </label>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" checked id="childlock">
+                                <label class="form-check-label" for="childlock">
+                                    <i class="fas fa-lock me-2"></i>Child lock
+                                </label>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" checked id="childseat">
+                                <label class="form-check-label" for="childseat">
+                                    <i class="fas fa-baby me-2"></i>Child seat
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="dvd">
+                                <label class="form-check-label" for="dvd">
+                                    <i class="fas fa-compact-disc me-2"></i>DVD
+                                </label>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="usb">
+                                <label class="form-check-label" for="usb">
+                                    <i class="fas fa-usb me-2"></i>USB
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="terms-of-use" role="tabpanel">
+            <div class="row">
+                <p class="card-text">
+                    <strong>Basic price: </strong><span th:text="${car.getBase_price()}"></span><br><br/>
+                    <strong>Required deposit: </strong><span th:text="${car.getDeposit()}"></span><br>
+                </p>
+            </div>
+            <div class="container mt-4">
+                <h5 class="mb-0">Term of use:</h5><br/>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" checked id="smoking">
+                                <label class="form-check-label">
+                                    No smoking
+                                </label>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="pet">
+                                <label class="form-check-label">
+                                    No pet
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="food">
+                                <label class="form-check-label">
+                                    No food in car
+                                </label>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" checked id="other">
+                                <label class="form-check-label">
+                                    Other
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer class="bg-light mt-5 py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h6>RENT CARS</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-dark">Search Cars and Rates</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h6>CUSTOMER ACCESS</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-dark">Manage My Booking</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">My Email</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">My Car</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">Log In</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h6>JOIN US</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-dark">New User Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Swiper('.car-images-slider', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            loop: true, // Cho phép lặp lại các slide
+        });
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
